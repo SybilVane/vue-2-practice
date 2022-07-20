@@ -1,24 +1,40 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Hello Vue 2 + Vite" />
-    <ConcatInput :title="8" has-to-show-subtitle @vane-click="showAlert" />
+    <PracticeComponent
+      title="Practice Vue with Arturo"
+      has-to-show-subtitle
+      :movie-list="movieList"
+      @vane-click="showAlert"
+    />
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import ConcatInput from './components/ConcatInput.vue'
+import PracticeComponent from './components/PracticeComponent.vue'
 
 export default {
   components: {
     HelloWorld,
-    ConcatInput
+    PracticeComponent
   },
   methods: {
     showAlert() {
       alert('Vane Click!')
     }
+  },
+  data() {
+    return {
+      movieList: []
+    }
+  },
+  created() {
+    fetch(
+      'https://bitbucket.org/!api/2.0/snippets/clarity-ai/zeGpkj/57d3cf6d02c2fd3a41091a8529c36382c5eaea35/files/movies.json'
+    )
+      .then((response) => response.json())
+      .then((data) => (this.movieList = data.slice(0, 100)))
   }
 }
 </script>
