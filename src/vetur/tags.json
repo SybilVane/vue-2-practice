@@ -1,0 +1,28 @@
+{
+  "concat-input": {
+    "attributes": [
+      "title",
+      "hasToShowSubtitle"
+    ],
+    "description": ""
+  },
+  "ConcatInput": {
+    "attributes": [
+      "title",
+      "hasToShowSubtitle"
+    ],
+    "description": ""
+  },
+  "hello-world": {
+    "attributes": [
+      "msg"
+    ],
+    "description": ""
+  },
+  "HelloWorld": {
+    "attributes": [
+      "msg"
+    ],
+    "description": ""
+  }
+}

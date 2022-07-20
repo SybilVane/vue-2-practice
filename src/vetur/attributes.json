@@ -1,0 +1,20 @@
+{
+  "concat-input/title": {
+    "type": "number"
+  },
+  "ConcatInput/title": {
+    "type": "number"
+  },
+  "concat-input/hasToShowSubtitle": {
+    "type": "boolean"
+  },
+  "ConcatInput/hasToShowSubtitle": {
+    "type": "boolean"
+  },
+  "hello-world/msg": {
+    "type": "string"
+  },
+  "HelloWorld/msg": {
+    "type": "string"
+  }
+}
