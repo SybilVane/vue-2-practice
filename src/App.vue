@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
+    <router-link to="/about"> GO TO ABOUT </router-link>
     <PracticeComponent
       title="Practice Vue with Arturo"
       has-to-show-subtitle
