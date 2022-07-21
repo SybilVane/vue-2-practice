@@ -25,7 +25,10 @@ export default {
         { id: 1, name: 'Apple', description: 'Fruit' },
         { id: 2, name: 'Box', description: 'Object' }
       ],
-      sortedColumn: 'title'
+      sortedColumn: 'title',
+      currentPage: 1,
+      firstItemOnPage: 0,
+      itemsPerPage: 5
     }
   },
   computed: {
@@ -34,18 +37,18 @@ export default {
     },
     movieListData() {
       return this.movieList
-        .filter((item) => {
-          return (
-            this.text1value === '' ||
-            item.title.toLowerCase().indexOf(this.text1value.toLowerCase()) !==
-              -1
-          )
-        })
         .sort((a, b) =>
           String(a[this.sortedColumn]).localeCompare(
             String(b[this.sortedColumn])
           )
         )
+        .filter(
+          (item) =>
+            this.text1value === '' ||
+            item.title.toLowerCase().indexOf(this.text1value.toLowerCase()) !==
+              -1
+        )
+        .slice(this.firstItemOnPage, this.firstItemOnPage + this.itemsPerPage)
     }
   },
   methods: {
@@ -60,6 +63,21 @@ export default {
     },
     sortByTitle() {
       this.sortedColumn = 'title'
+    },
+    turnPage(str) {
+      if (str === 'prev' && this.currentPage > 1) {
+        this.currentPage = this.currentPage - 1
+        this.firstItemOnPage = this.firstItemOnPage - this.itemsPerPage
+      } else if (
+        str === 'next' &&
+        this.currentPage < Math.ceil(this.movieList.length / this.itemsPerPage)
+      ) {
+        this.currentPage = this.currentPage + 1
+        this.firstItemOnPage = this.firstItemOnPage + this.itemsPerPage
+      } else return
+    },
+    changeNumberOfItemsPerPage(num) {
+      this.itemsPerPage = num
     }
   }
 }
@@ -90,6 +108,13 @@ export default {
     </p>
     <button @click="sortByYear">Sort by year</button>
     <button @click="sortByTitle">Sort by title</button>
+    <button @click="turnPage('prev')">PREV</button>
+    <button @click="turnPage('next')">NEXT</button>
+    <button @click="changeNumberOfItemsPerPage(5)">show 5 items</button>
+    <button @click="changeNumberOfItemsPerPage(10)">show 10 items</button>
+    <button @click="changeNumberOfItemsPerPage(50)">show 50 items</button>
+    <span> You are on page {{ currentPage }}</span>
+    <br />
     <div class="movie-table" v-if="movieListData.length > 0">
       <div v-for="(movie, i) in movieListData" :key="i" class="row">
         <div class="cell bold">{{ movie?.title }}</div>
@@ -101,6 +126,7 @@ export default {
       </div>
     </div>
     <div v-else>LOADING...</div>
+    <br />
   </div>
 </template>
 
